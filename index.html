@@ -1,10 +1,49 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>the_www_project</title>
+    <title>The World Wide Web — A Timeline Tribute</title>
+    <meta
+      name="description"
+      content="A scroll-driven timeline tribute to the first World Wide Web page by Tim Berners-Lee: from the line-mode terminal and the 1990 original to the present web. Same document, presented through time."
+    />
+    <meta name="author" content="Educational tribute — not an official CERN site" />
+    <meta name="theme-color" content="#0a0f0a" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="The World Wide Web — A Timeline Tribute" />
+    <meta
+      property="og:description"
+      content="The first web page, kept intact — from a line-mode terminal in 1989 to the present web."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="The World Wide Web — A Timeline Tribute" />
+    <meta
+      name="twitter:description"
+      content="The first web page, kept intact — from a line-mode terminal in 1989 to the present web."
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "The World Wide Web — A Timeline Tribute",
+        "description": "A timeline tribute to the first World Wide Web page (info.cern.ch, Tim Berners-Lee, 1990). Educational tribute, not an official CERN site.",
+        "about": "https://home.web.cern.ch/topics/birth-web",
+        "isBasedOn": "http://info.cern.ch/hypertext/WWW/TheProject.html"
+      }
+    </script>
+    <script>
+      try {
+        var stored = localStorage.getItem('www-theme');
+        var dark =
+          stored === 'dark' ||
+          (stored !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>

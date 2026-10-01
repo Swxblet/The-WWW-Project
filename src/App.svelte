@@ -1,89 +1,86 @@
-<script>
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from './assets/vite.svg'
-  import heroImg from './assets/hero.png'
-  import Counter from './lib/Counter.svelte'
+<script lang="ts">
+  import HeroIntro from './components/HeroIntro.svelte';
+  import ThemeToggle from './components/ThemeToggle.svelte';
+  import TheProject from './components/TheProject.svelte';
+  import TerminalChrome from './components/TerminalChrome.svelte';
+  import Era2010Chrome from './components/Era2010Chrome.svelte';
+  import ModernChrome from './components/ModernChrome.svelte';
+  import CernParticles from './components/CernParticles.svelte';
+  import { ERAS } from '$lib/content/www-content';
+  import { useScrubReveal } from '$lib/useScrubReveal';
+
+  let scrubTerminal: HTMLElement | undefined = $state();
+  let scrubOriginal: HTMLElement | undefined = $state();
+  let scrub2010s: HTMLElement | undefined = $state();
+  let scrubModern: HTMLElement | undefined = $state();
+
+  useScrubReveal(() => [scrubTerminal, scrubOriginal, scrub2010s, scrubModern]);
+
+  const viewAnchors: Record<string, string> = {
+    terminal: '#view-line-mode',
+    original: '#view-original-page',
+    'retro-2010': '#view-2010s',
+    modern: '#view-present'
+  };
 </script>
 
-<section id="center">
-  <div class="hero">
-    <img src={heroImg} class="base" width="170" height="179" alt="" />
-    <img src={svelteLogo} class="framework" alt="Svelte logo" />
-    <img src={viteLogo} class="vite" alt="Vite logo" />
-  </div>
-  <div>
-    <h1>Get started</h1>
-    <p>Edit <code>src/App.svelte</code> and save to test <code>HMR</code></p>
-  </div>
-  <Counter />
-</section>
+<a class="skip-link" href="#main">Skip to content</a>
+<ThemeToggle />
 
-<div class="ticks"></div>
+<main id="main">
+  <HeroIntro />
 
-<section id="next-steps">
-  <div id="docs">
-    <svg class="icon" role="presentation" aria-hidden="true">
-      <use href="/icons.svg#documentation-icon"></use>
-    </svg>
-    <h2>Documentation</h2>
-    <p>Your questions, answered</p>
-    <ul>
-      <li>
-        <a href="https://vite.dev/" target="_blank" rel="noreferrer">
-          <img class="logo" src={viteLogo} alt="" />
-          Explore Vite
-        </a>
-      </li>
-      <li>
-        <a href="https://svelte.dev/" target="_blank" rel="noreferrer">
-          <img class="button-icon" src={svelteLogo} alt="" />
-          Learn more
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div id="social">
-    <svg class="icon" role="presentation" aria-hidden="true">
-      <use href="/icons.svg#social-icon"></use>
-    </svg>
-    <h2>Connect with us</h2>
-    <p>Join the Vite community</p>
-    <ul>
-      <li>
-        <a href="https://github.com/vitejs/vite" target="_blank" rel="noreferrer">
-          <svg class="button-icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#github-icon"></use>
-          </svg>
-          GitHub
-        </a>
-      </li>
-      <li>
-        <a href="https://chat.vite.dev/" target="_blank" rel="noreferrer">
-          <svg class="button-icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#discord-icon"></use>
-          </svg>
-          Discord
-        </a>
-      </li>
-      <li>
-        <a href="https://x.com/vite_js" target="_blank" rel="noreferrer">
-          <svg class="button-icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#x-icon"></use>
-          </svg>
-          X.com
-        </a>
-      </li>
-      <li>
-        <a href="https://bsky.app/profile/vite.dev" target="_blank" rel="noreferrer">
-          <svg class="button-icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#bluesky-icon"></use>
-          </svg>
-          Bluesky
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
+  <section id="view-line-mode" class="era-section" data-era="terminal" data-scrub aria-label="Document reference" bind:this={scrubTerminal}>
+    <div class="scrub">
+      <TerminalChrome>
+        <TheProject idPrefix="terminal-" />
+      </TerminalChrome>
+    </div>
+  </section>
 
-<div class="ticks"></div>
-<section id="spacer"></section>
+  <section id="view-original-page" class="era-section" data-era="original" data-scrub aria-label="Document reference" bind:this={scrubOriginal}>
+    <div class="era-inner scrub">
+      <TheProject idPrefix="original-" />
+    </div>
+  </section>
+
+  <section id="view-2010s" class="era-section" data-era="retro-2010" data-scrub aria-label="Document reference" bind:this={scrub2010s}>
+    <div class="scrub">
+      <Era2010Chrome idPrefix="retro-">
+        <TheProject idPrefix="retro-" />
+      </Era2010Chrome>
+    </div>
+  </section>
+
+  <section id="view-present" class="era-section modern-wrap" data-era="modern" data-scrub aria-label="Document reference" bind:this={scrubModern}>
+    <CernParticles />
+    <div class="scrub">
+      <ModernChrome idPrefix="modern-">
+        <TheProject idPrefix="modern-" />
+      </ModernChrome>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="hub-about">
+      <h2>About this presentation</h2>
+      <p>
+        Educational tribute. Text from
+        <a href="http://info.cern.ch/hypertext/WWW/TheProject.html" rel="noreferrer">info.cern.ch — TheProject.html</a>.
+        Not an official CERN site. See
+        <a href="https://home.web.cern.ch/topics/birth-web" rel="noreferrer">birth of the web</a>.
+      </p>
+    </div>
+    <nav class="hub-views" aria-label="Consult the document as">
+      <h2>Consult the document as</h2>
+      <ul>
+        {#each ERAS as era (era.id)}
+          <li><a href={viewAnchors[era.id]}>{era.label}</a></li>
+        {/each}
+      </ul>
+    </nav>
+    <p class="hub-top"><a href="#main">Back to top</a></p>
+  </div>
+</footer>

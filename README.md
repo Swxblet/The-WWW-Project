@@ -1,47 +1,107 @@
-# Svelte + TS + Vite
+# The WWW Project — From Terminal to Modern Web
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+> A scroll-driven reimagining of the first web page:
+> `info.cern.ch/hypertext/WWW/TheProject.html` (Tim Berners-Lee, 1990).
+> Same root content, four styles: terminal → 1990 original → 2010 web → 2026 modern.
 
-## Recommended IDE Setup
+## Vision
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+The web was born as plain text in a line-mode terminal. This project lets you
+scroll through that history without leaving the page:
 
-## Need an official Svelte framework?
+1. **Terminal (~1989)** — black screen, phosphor green, `>` prompt, line-by-line render.
+   Inspired by the [line-mode browser simulator](http://line-mode.cern.ch/www/hypertext/WWW/TheProject.html).
+2. **Original (1990)** — faithful replica of TheProject.html: white background,
+   Times serif, blue underlined links, introduced with a quiet scroll reveal.
+3. **Retro (circa 2010)** — the same content dressed as Web 2.0: glossy header,
+   two-column layout, pills and sidebars. Deliberately dated.
+4. **Modern (2026)** — clean reinterpretation with intentional typography and generous
+   whitespace. Designed with our frontend design system, quiet throughout.
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+No routers, no reloads. Scroll is the time machine.
 
-## Technical considerations
+## Original content preserved
 
-**Why use this over SvelteKit?**
+All eras render from a single source:
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+- Intro `WorldWideWeb (W3)` + hypermedia vision
+- Executive summary, mailing lists, policy, news, FAQ
+- `What's out there?`, `Help`, `Software Products`
+- `Technical`, `Bibliography`, `People`, `History`
+- `How can I help`, `Getting code`
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+We do not invent history. Modern copy may summarize but always links back to the CERN originals.
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+See [the first website](http://info.cern.ch/hypertext/WWW/TheProject.html) and
+[the birth of the web](https://home.web.cern.ch/topics/birth-web).
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+## Tech stack
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+- **Svelte 5** (runes), **TypeScript** strict, **Vite 8**
+- Vanilla CSS with era theming via `[data-era]` + CSS custom properties
+- Native `IntersectionObserver` + `requestAnimationFrame` for quiet scroll reveals, no scroll library
+- No router, no Tailwind, no UI kit
 
-**Why include `.vscode/extensions.json`?**
+## Getting started
 
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+```bash
+npm install
+npm run dev      # local dev at http://localhost:5173
+npm run build    # production build to dist/
+npm run preview  # preview the production build
+npm run check    # svelte-check + tsc, run before every PR
 ```
+
+Requirements: Node 20+.
+
+## Project structure
+
+```
+src/
+  App.svelte                 # journey orchestrator, natural stacked sections
+  lib/
+    content/www-content.ts   # single source of truth for all sections/links
+    useScrubReveal.ts        # scroll-scrubbed entry transitions, respects prefers-reduced-motion
+  components/
+    HeroIntro.svelte        # timeline hero with quiet atom canvas
+    ThemeToggle.svelte       # light/dark toggle, persisted, pre-paint in index.html
+    TerminalChrome.svelte    # terminal frame only
+    TheProject.svelte        # semantic, era-agnostic markup
+    Era2010Chrome.svelte     # 2010 wrapper chrome only
+    ModernChrome.svelte      # modern wrapper chrome only
+    CernParticles.svelte     # discreet canvas detail for the modern era only
+  styles/
+    eras.css                 # theme vars + 4 skins via [data-era]
+AGENTS.md                    # contributor rules, styling guide, DoD
+```
+
+Rule: **era = CSS + chrome wrapper only.** Never duplicate section text per era.
+
+## Design notes
+
+- Terminal: `#0A0F0A` bg, `#33FF33` ink, monospace, subtle scanlines.
+- Original: white `#FFFFFF`, Times serif, `#0000EE` links, zero radius.
+- 2010: `Arial/Helvetica`, glossy gradients, pills, shadows — intentionally dated.
+- Modern: paper `#FAFAF9`, ink `#111111`, one CERN-blue accent, two distinct type families.
+
+Quiet scroll reveals only. Everything else stays still.
+Respects `prefers-reduced-motion`, keyboard navigable, mobile-first (`<80ch` in early eras).
+
+## Roadmap
+
+- [x] Phase 0 — docs (this README + AGENTS.md)
+- [ ] Phase 1 — `www-content.ts` + faithful 1990 `TheProject.svelte`
+- [ ] Phase 2 — `TerminalChrome` + sticky scroll container
+- [ ] Phase 3 — scroll-scrubbed `useScrubReveal` transitions
+- [ ] Phase 4 — 2010 theme
+- [ ] Phase 5 — modern theme, a11y polish, deploy
+
+See `AGENTS.md` for definition of done and contributor conventions.
+
+## Credits
+
+Built by **[CodePixels Studio](https://codepixels.dev)** in collaboration with **COVAO de Costa Rica**.
+
+Educational tribute to CERN and the World Wide Web inventors. Original content belongs to CERN.
+This is not an official CERN site — please visit
+[info.cern.ch](http://info.cern.ch/) and [home.web.cern.ch](https://home.web.cern.ch/) for the real history.
