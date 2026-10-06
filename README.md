@@ -100,7 +100,7 @@ See `AGENTS.md` for definition of done and contributor conventions.
 
 ## Credits
 
-Built by **[CodePixels Studio](https://codepixels.dev)** in collaboration with **COVAO de Costa Rica**.
+Built by Ian Díaz Sandi and Emily Navarro Santamaría at **[COVAO de Costa Rica](https://covao.ed.cr/)**, in collaboration with **[CodePixels Studio](https://codepixels.dev)**.
 
 Educational tribute to CERN and the World Wide Web inventors. Original content belongs to CERN.
 This is not an official CERN site — please visit

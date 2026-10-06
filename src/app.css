@@ -130,12 +130,18 @@ body {
   border-top: 1px solid var(--foot-line);
   padding-top: 1rem;
 }
+.hub-credits {
+  border-top: 1px solid var(--foot-line);
+  padding-top: 1rem;
+  font-size: 0.85rem;
+}
 
 @media (min-width: 800px) {
   .site-footer-inner {
     grid-template-columns: 1.4fr 1fr;
   }
-  .hub-top {
+  .hub-top,
+  .hub-credits {
     grid-column: 1 / -1;
   }
 }

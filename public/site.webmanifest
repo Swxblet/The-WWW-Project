@@ -1,0 +1,21 @@
+{
+  "name": "The World Wide Web — A Timeline Tribute",
+  "short_name": "WWW Tribute",
+  "description": "A timeline tribute to the first World Wide Web page, from the line-mode terminal to the present web.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafaf9",
+  "theme_color": "#0a0f0a",
+  "icons": [
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}
