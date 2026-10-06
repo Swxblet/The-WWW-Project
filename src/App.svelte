@@ -85,7 +85,8 @@
     <p class="hub-credits">
       Made at <a href="https://covao.ed.cr/" rel="noreferrer">COVAO</a> by Ian Díaz Sandi and Emily
       Navarro Santamaría, in collaboration with
-      <a href="https://codepixels.dev" rel="noreferrer">CodePixels Studio</a>.
+      <a href="https://codepixels.dev" rel="noreferrer">CodePixels Studio</a>
+      2026.
     </p>
   </div>
 </footer>
